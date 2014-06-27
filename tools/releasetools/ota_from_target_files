@@ -516,31 +516,28 @@ else if get_stage("%(bcb_dev)s", "stage") == "3/3" then
     script.Print("Formatting /data")
     script.FormatPartition("/data", OPTIONS.mount_by_label)
 
-  script.Print("#######################################");
-  script.Print("# _____            __  __  ______     #");
-  script.Print("#/\  __`\  /'\_/`\/\ \/\ \/\__  _\    #");
-  script.Print("#\ \ \/\ \/\  ``  \ \ ` \ \/_/\ \/    #");
-  script.Print("# \ \ \ \ \ \ \__\ \ \ . ` \ \ \ \    #");
-  script.Print("#  \ \ \_\ \ \ \_/\ \ \ \`\ \ \_\ \__ #");
-  script.Print("#   \ \_____\ \_\, \_\ \_\ \_\/\_____\#");
-  script.Print("#    \/_____/\/_/ \/_/\/_/\/_/\/_____/#");
-  script.Print("#                                     #");
-  script.Print("#######################################");
+  script.Print("<! ================================== !>");
+  script.Print("<!  Mantoui is modified from OmniROM  ");
+  script.Print("<! ---------------------------------- !>");
+  script.Print("<!  PICTURE / CODE FROM THE INTERNET  ");
+  script.Print("<! ---------------------------------- !>");
+  script.Print("<!  IF YOU NO LIKE. NO BB NO BB. THK  ");
+  script.Print("<! ================================== !>");
 
   if "selinux_fc" in OPTIONS.info_dict:
     WritePolicyConfig(OPTIONS.info_dict["selinux_fc"], output_zip)
 
-  script.Print("Formatting /system")
+  script.Print("<1  Formatting /system")
   script.FormatPartition("/system", OPTIONS.mount_by_label)
   if not OPTIONS.mount_by_label:
     script.Mount("/system")
 
 #  script.UnpackPackageDir("recovery", "/system")
-  script.Print("Extracting /system")
+  script.Print("<2  Extracting /system")
   script.UnpackPackageDir("system", "/system")
 
   symlinks = CopySystemFiles(input_zip, output_zip)
-  script.Print("Symlinking")
+  script.Print("<3  Symlinking")
   script.MakeSymlinks(symlinks)
 
   boot_img = common.GetBootableImage("boot.img", "boot.img",
@@ -559,11 +556,11 @@ else if get_stage("%(bcb_dev)s", "stage") == "3/3" then
     script.RunBackup("restore")
 
   script.ShowProgress(0.2, 10)
-  script.Print("Flashing boot.img")
+  script.Print("<4  Flashing boot.img")
   script.WriteRawImage("/boot", "boot.img")
 
   script.ShowProgress(0.1, 0)
-  script.Print("Enjoy OMNI ROM!");
+  script.Print("<5  Complete. (Shua Wan Le)");
   device_specific.FullOTA_InstallEnd()
 
   if OPTIONS.extra_script is not None:
